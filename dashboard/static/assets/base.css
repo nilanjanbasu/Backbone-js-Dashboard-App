@@ -39,6 +39,7 @@ html,body{
 }
 
 #sticker {
+/* 	position:absolute; */
 	height: 500px;
 	width: 350px;	
 	margin: auto auto;
@@ -48,6 +49,7 @@ html,body{
 	
 }
 #pass {
+	position:relative;
 	height: 430px;
 	width: 300px;	
 	background-color: #fff;
@@ -55,6 +57,32 @@ html,body{
 	-webkit-border-radius: 0.8ex;
 	border-radius: 0.8ex;		
 	margin: 0 auto;
+}
+#headers {
+	height: 50px;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+#headers > *{
+	display:inline;
+	height:inherit;
+}
+#headers > img {
+	position:absolute;
+/* 	top:5px; */
+	left:10px;
+/* 	margin:0; */
+/* 	float:left; */
+/* 	margin:left: 20px; */
+	min-height: 30px;
+	min-width: 30px;
+}
+#headers > h4 {
+	position:relative;
+	top:15px;
+	font-family: "Verdana'', sans-serif;
+	font-size: 24px;
 }
 
 #control-panel > * {
@@ -64,3 +92,4 @@ html,body{
 #control-panel > h1,h2,h3 {
 	border-bottom: 1px solid black;
 }
+

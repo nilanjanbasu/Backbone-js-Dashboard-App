@@ -3,75 +3,51 @@ var app = app || {};
 $(function(){
 	'use strict';	
 	
-	app.controlpanel = Backbone.View.extend({
-		el:'#control-panel',
-		
-		events: {
-			'blur #ip': 'update',
-			'click #save': 'save_model'
-		},
-		
+	app.headerpanel = Backbone.View.extend({
 		initialize:function(){
-			
+			this.model.on('change:logo_img_url',this.changeLogo,this); //bind the events
+			this.model.on('change:logo_text',this.changeLogoText,this);
 		},
 		
-		update: function() {
-			var v=$('#ip').val().trim();
-			app.Dashboard.set({text:v});
-		},
-		save_model:function(){
+		changeLogo:function(){
 			
-			$('.btn').addClass('disabled');
-			app.Dashboard.save();
-			var d = app.Dashboard.toJSON();
-			$.ajax({
-				type:"POST",
-				url:"/",
-				data: d,
-				dataType: "json",
-				context: this.el,
-				success: function(data,textStatus){
-					if(data.redirectUrl) {
-						window.location.replace(data.redirectUrl);
-					}
-				},
-				error: function(jqxhr,textStatus,error){
-					$(this).append("Error:"+jqxhr.statusText);
-				}
-					
-			});
+			//TODO
+		},
+		changeLogoText: function(){
+			$('h4').text(this.model.get('logo_text'));
+			return this;
 		}
+	
 		
 	});	
-	
 	
 	app.appview = Backbone.View.extend({
 		
 		el: '#dashboard',		
 		
 		initialize: function() {
-			app.Dashboard.on('change',this.render,this);
+			app.Dashboard.on('change',this.subrender,this);
+			this.header_view = new app.headerpanel({el:$("#headers"),model:app.Dashboard.get('headers')}); ////
 		},
 		
-		render: function() {
-			//alert("in dashboard");
-			this.$('#pass').html('<p>'+app.Dashboard.get('text')+'</p>');
+		subrender: function() {//			
+			console.log('Color event in view');
+			this.$('#nameofdesign').text(app.Dashboard.get('text'));
+			this.$('#pass').css({'background-color':app.Dashboard.get('color')});
 			return this;
 		}
 		
 	});	
-	var headerPanel = Backbone.View.extend({
-		tagName: 'div',
-		template: _.template( $("#sec-template").html()),
+//	var headerPanel = Backbone.View.extend({
+//		tagName: 'div',
+//		template: _.template( $("#sec-template").html()),
+//		
+//		initialize: function(){
+//			//this.model.on();
+//		}
 		
-		initialize: function(){
-			//this.model.on();
-		}
 		
-		
-		
-	});
-	
+			
 });
 
 
