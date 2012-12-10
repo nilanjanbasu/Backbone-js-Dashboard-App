@@ -14,12 +14,14 @@ $(function(){
 			'click .btn.down': function(){this.shift(0,2);},
 			'click .btn.fontplus':function(){this.changeFont(2);},
 			'click .btn.fontminus': function(){this.changeFont(-2);},
-			'click .btn.apply':'updateImage',
+			'click #logo_apply':'updateImage',
 			'blur #colorchooser': 'changeFontColor'
 		},
 		
 		initialize:function(){
+			
 			$('#logo-image').attr('disabled',true);
+			$('#logo_apply').addClass("disabled");
 		},
 		
 		changeFontColor: function(){
@@ -71,6 +73,11 @@ $(function(){
 			});
 			var checked_status = this.model.get('use_img');
 			this.model.set({use_img:!checked_status});
+			if(!checked_status){
+				$('#logo_apply').removeClass("disabled");
+			} else {
+				$('#logo_apply').addClass("disabled");
+			}
 			
 //			this.trigger('click_check');
 			console.log('Fired event click_check');
@@ -82,8 +89,43 @@ $(function(){
 	app.primaryPanel = Backbone.View.extend({
 		
 		events: {
-			
+			'blur #offer' : 'update_offer',
+			'blur #item' : 'update_item',
+			'click #checkbox_thumb': 'toggleThumb',
+			'click #thumb_apply':'updateThumb',
 		},
+		initialize:function(){
+			$('#thumbnail').attr('disabled',true);
+			$('#thumb_apply').addClass("disabled");
+		},
+		
+		update_offer:function(){
+			var v=$("#offer").val().trim();
+			this.model.set({offer_field:v});
+		},
+		
+		update_item: function(){
+			var v=$("#item").val().trim();
+			this.model.set({item_field:v});
+		},	
+		toggleThumb: function() {
+			$('#thumbnail').attr('disabled',function(idx, oldAttr) {
+	            return !oldAttr;
+			});
+			var checked_status = this.model.get('use_thumbnail');
+			this.model.set({use_thumbnail:!checked_status});
+			if(!checked_status){
+				$('#thumb_apply').removeClass("disabled");
+			} else {
+				$('#thumb_apply').addClass("disabled");
+			}
+		},
+		updateThumb: function() {
+			if(this.model.get('use_thumbnail')){
+				var url = $('#thumbnail').val().trim();
+				this.model.set({'thumbnail_url':url});
+			}
+		}
 		
 	});
 	
@@ -99,11 +141,17 @@ $(function(){
 		
 		initialize:function(){
 			this.headerController = new app.headerControlPanel({el:$('#header_controls'),model:app.Dashboard.get('headers')});
-			this.primaryController = new app.primaryPanel({el:$('#primary_controls'),model:appDashboard.get('primary')});
+			this.primaryController = new app.primaryPanel({el:$('#primary_controls'),model:app.Dashboard.get('primary')});
+			
+			app.Dashboard.on('Fetch_server',this.hide_panel,this);
 		},
 		
 		render:function(){
 			
+		},
+		
+		hide_panel: function(){
+			console.log('Hide panel in control panel');
 		},
 		
 		update_generic: function(selector,attribute) {
@@ -125,9 +173,8 @@ $(function(){
 		
 		save_model:function(){
 			
-			$('.btn').addClass('disabled');
-			app.Dashboard.save();
-			var d = app.Dashboard.toJSON();
+			$('#save').addClass('disabled');
+			var d = JSON.stringify(app.Dashboard.toJSON());
 			$.ajax({
 				type:"POST",
 				url:"/",
@@ -136,7 +183,9 @@ $(function(){
 				context: this.el,
 				success: function(data,textStatus){
 					if(data.redirectUrl) {
-						window.location.replace(data.redirectUrl);
+						//alert(app.Dashboard.url);
+						app.Router.navigate(data.redirectUrl,{trigger:true});
+						//window.location.replace(data.redirectUrl);
 					}
 				},
 				error: function(jqxhr,textStatus,error){

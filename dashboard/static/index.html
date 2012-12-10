@@ -60,20 +60,32 @@ $(function(){
 				<div class="input-prepend">
 			  	<span class="add-on">Image URL</span>
 			  	<input class="span3" id="logo-image" type="text" placeholder="http://example.com/image.png">
-			  	<a class="btn apply">Apply</a>
+			  	<a class="btn" id="logo_apply">Apply</a>
 				</div>
 	<!-- 		</form> -->
 			</div>
 		</div>
 		<div id="primary_controls">
 			<h3>Primary Field Settings</h3>
-		
-		
-		
+			<div class="input-prepend">
+			  <span class="add-on">Offer: </span>
+			  <input class="span4" id="offer" type="text" placeholder="e.g. Entry Pass">
+			</div>
+			<div class="input-prepend">
+			  <span class="add-on">Item Description: </span>
+			  <input class="span3" id="item" type="text" placeholder="e.g. for one person only">
+			</div>
+			<label class="checkbox"><input id="checkbox_thumb" type="checkbox">Add a thumbnail</label>
+				<div class="input-prepend">
+			  	<span class="add-on">Image URL</span>
+			  	<input class="span3" id="thumbnail" type="text" placeholder="http://example.com/thumb.png">
+			  	<a class="btn" id="thumb_apply">Apply</a>
+				</div>
+			<br>
+			<button class="btn btn-large btn-block btn-primary" id="save" type="button">Save</button>	
 		
 		</div> 
-		<input id="ip" type="text" placeholder="Text input">
-		<button class="btn btn-large btn-primary" id="save" type="button">Save</button>		
+				
 		
 		
 	</div>
@@ -91,8 +103,10 @@ $(function(){
 					<h4>Logo Text Here</h4>
 				</div>
 				<div id="primary">
-					<h3 id="offer">20% off</h3>
-					<p id="item">for any dog food</p>				
+					<div id="only_text">
+						<h3 id="offer_view">Sample Offer</h3>
+						<p id="item_view">Item description</p>
+					</div>				
 				</div>
 				<div id="secondary"></div>
 				<div id="auxiliary"></div>
@@ -103,22 +117,23 @@ $(function(){
 		</div>
 	</div>
 </div>
-	<script type="text/template" id="#sec-template">
+	<script type="text/template" id="sec-template">
 		<label class="property"><%= text %></label>
 		<label class="value"><%= text %></label>
 	</script>
-	<script type="text/template" id="#sec-template">
-		<img src="<%=thumbnail %>">
+	<script type="text/template" id="thumb_template">
+			<img id="thumbnail_view" src="<%=thumbnail %>">
 	</script>
 	<script src="assets/jquery.min.js"></script>
 	<script src="js/lib/json2.js"></script>
 	<script src="js/lib/lodash.min.js"></script>
 <!-- 	<script src="js/lib/underscore-min.js"></script> -->
 	<script src="js/lib/backbone-min.js"></script>	
-	<script src="js/lib/backbone-localstorage.js"></script>
+<!-- 	<script src="js/lib/backbone-localstorage.js"></script> -->
 	<script src="js/models/dashboard.js"></script>
 	<script src="js/views/controlpanel.js"></script>
 	<script src="js/views/view.js"></script>
+	<script src="js/routers/workspace.js"></script>
 	<script src="js/app.js"></script>
 </body>
 </html>

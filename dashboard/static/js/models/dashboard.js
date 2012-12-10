@@ -43,7 +43,15 @@ $(function(){
 			headers: new app.HeaderFieldModel(),
 			primary: new app.PrimaryFieldModel()
 		},
-		localStorage: new Store("Dashboard-config")
+		//localStorage: new Store("Dashboard-config")
+		
+		parse:function(response){
+			this.headers = new app.HeaderFieldModel(response.headers,{parse:true});
+			delete response.headers;
+			this.primary = new app.PrimaryFieldModel(response.primary,{parse:true});
+			delete response.headers;
+			return response;
+		}
 	});
 	app.Dashboard = new dashboard();
 

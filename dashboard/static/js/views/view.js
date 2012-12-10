@@ -58,8 +58,41 @@ $(function(){
 	
 	app.primaryAppView = Backbone.View.extend({
 		
-		initialize:function(){
-			
+		template: _.template( $('#thumb_template').html()),
+		
+		initialize:function(){		
+			this.model.on('change:use_thumbnail',this.toggleChecked,this);
+			this.model.on('change:thumbnail_url',this.makeThumbVisible,this);
+			this.model.on('change:offer_field',this.updateOfferField,this);
+			this.model.on('change:item_field',this.updateItemField,this);
+		},
+		
+		updateItemField: function() {
+			$('#only_text p').text(this.model.get('item_field'));
+		},
+		
+		updateOfferField: function(){
+			$('#only_text h3').text(this.model.get('offer_field'));			
+		},
+		
+		
+		makeThumbVisible: function(){
+			$("#thumbnail_view").attr({'src':this.model.get('thumbnail_url')}).show();
+		},
+		
+		toggleChecked: function(){
+			var status = this.model.get('use_thumbnail');
+			if(status) {
+				var url = this.model.get('thumbnail_url');
+				this.$el.append(this.template({thumbnail:url}));
+				this.$('#only_text').addClass('sidepane').css({'width':'auto'});
+				this.$('#only_text h3').css({'font-size':'50px'});
+				$('#thumbnail_view').fadeIn();
+			} else {
+				$('#thumbnail_view').fadeOut().remove();
+				this.$('#only_text').removeClass('sidepane').css('width','100%');
+				this.$('#only_text h3').css({'font-size':'70px'});
+			}
 		}
 	});
 	
@@ -68,10 +101,25 @@ $(function(){
 		el: '#dashboard',		
 		
 		initialize: function() {
-			app.Dashboard.on('change',this.subrender,this);
+			app.Dashboard.on('change:headers',this.change_header_view,this);
+			app.Dashboard.on('change:primary',this.change_primary_view,this);
+			app.Dashboard.on('change:text',this.subrender,this);
+			app.Dashboard.on('change:color',this.subrender,this);
+			app.Dashboard.on('Fetch_server',this.fetch_server,this);
 			this.header_view = new app.headerAppView({el:$("#headers"),model:app.Dashboard.get('headers')}); ////
+			this.primary_view = new app.primaryAppView({el:$("#primary"),model:app.Dashboard.get('primary')}); ////
 		},
 		
+		fetch_server:function(){
+			console.log('Fetch server in app view');
+		},
+		
+		change_header_view:function(){
+			this.header_view = new app.headerAppView({el:$("#headers"),model:app.Dashboard.get('headers')}); ////
+		},
+		change_primary_view:function(){
+			this.primary_view = new app.primaryAppView({el:$("#primary"),model:app.Dashboard.get('primary')}); ////
+		},
 		subrender: function() {//			
 			console.log('Color event in view');
 			this.$('#nameofdesign').text(app.Dashboard.get('text'));
@@ -79,17 +127,7 @@ $(function(){
 			return this;
 		}
 		
-	});	
-//	var headerPanel = Backbone.View.extend({
-//		tagName: 'div',
-//		template: _.template( $("#sec-template").html()),
-//		
-//		initialize: function(){
-//			//this.model.on();
-//		}
-		
-		
-			
+	});				
 });
 
 

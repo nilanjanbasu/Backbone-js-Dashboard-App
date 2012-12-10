@@ -1,3 +1,9 @@
+@font-face {
+font-family: 'Aller_Lt';
+src: local("YanoneKaffeesatz-Thin");
+src: url('YanoneKaffeesatz-Thin.ttf') format('truetype');
+}
+
 html,body{
 	background-color: #FFF9EE;;
 	height:100%;
@@ -25,7 +31,7 @@ html,body{
 }
 #control-panel{
 	background-color:white;
-	width:55%;
+	width:57%;
 	position:absolute;
 	left:0;
 	border-right: 2px solid #E5E5E5 ;
@@ -99,12 +105,62 @@ html,body{
 	position:absolute;
 	padding: 10px 0 10px 0;
 	bottom: 0px;
-	height:100px;
+	height:130px;
 	width: auto;
 	border-top: 1px solid #F0F0F0;
 }
 #barcode > img {
 	position:relative;
-	height:100px;
+	height:130px;
 	margin:0 100px 0 100px;
 }
+
+#primary {
+/* 	height: 130px; */
+/* 	border-bottom: 1px solid #F0F0F0; */
+}
+/* #only_text { */
+/* 	height:inherit; */
+/* } */
+
+#only_text {
+	position:absolute;
+	top:70;
+	left:0;
+	height: 150px;
+	width: 100%;
+	padding: 5px 0px 0px 12px;
+}
+
+#only_text  h3 {
+	position:relative;
+	font-family: "Aller_Lt";
+	font-size:60px;
+/* 	margin-top:30px; */
+}
+#only_text p {
+	position:relative;
+	top:10px;
+	font-size: 15px;
+}
+
+.sidepane {
+	width: 150px;	
+}
+#primary.sidepane {
+ 	margin: none;
+ 	text-align: left;
+ 	margin-left: 10px;
+ }
+ 
+#thumbnail_view {
+	position:absolute;
+	right: 10px;
+	top: 60px;
+	width: 100px;
+	
+	float:right;
+}
+
+
+
