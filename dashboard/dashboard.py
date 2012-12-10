@@ -2,7 +2,7 @@ import webapp2
 import os
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
-import simplejson
+import json
 
 class JSONData(db.Model):
 	json_data = db.StringProperty()
@@ -19,7 +19,7 @@ class MainPage(webapp2.RequestHandler):
 		e = JSONData(json_data = data)
 		key = e.put()
 		url = '/saved/'+str(key.id())
-		self.response.out.write(simplejson.dumps({'redirectUrl': url}))
+		self.response.out.write(json.dumps({'redirectUrl': url}))
 		
 class SavePage(webapp2.RequestHandler):
 	def get(self,saved_id):
