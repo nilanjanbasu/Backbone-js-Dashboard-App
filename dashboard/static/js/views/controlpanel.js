@@ -11,16 +11,38 @@ $(function(){
 			'click .btn.right': function(){this.shift(2,0);},
 			'click .btn.left': function(){this.shift(-2,0);},
 			'click .btn.up': function(){this.shift(0,-2);},
-			'click .btn.down': function(){this.shift(0,2);}
-//			'click .btn.fontplus':,
-//			'click .btn.fontminus':
+			'click .btn.down': function(){this.shift(0,2);},
+			'click .btn.fontplus':function(){this.changeFont(2);},
+			'click .btn.fontminus': function(){this.changeFont(-2);},
+			'click .btn.apply':'updateImage',
+			'blur #colorchooser': 'changeFontColor'
 		},
 		
 		initialize:function(){
+			$('#logo-image').attr('disabled',true);
 		},
 		
-		changeFont:function(){
+		changeFontColor: function(){
+			console.log("here");
+			var clr = $('#colorchooser').val();
+			if( clr ) {
+				console.log('Colorchooser event, color' + clr.trim());
+				this.model.set({font_color:clr.trim()});				
+			}
 			
+		},
+		
+		updateImage: function(){
+			if(this.model.get('use_img')){
+				var url = $('#logo-image').val().trim();
+				this.model.set({'logo_img_url':url});
+			}
+		},
+		changeFont:function(i){
+			console.log("here");
+			var size = this.model.get('font_size');
+			console.log(size);
+			this.model.set('font_size',size+i);
 		},
 		
 		shift: function(delta_left,delta_top){ //+ve x means downwards, and +y means rightwards
@@ -50,9 +72,18 @@ $(function(){
 			var checked_status = this.model.get('use_img');
 			this.model.set({use_img:!checked_status});
 			
-			this.trigger('click_check');
+//			this.trigger('click_check');
 			console.log('Fired event click_check');
 		}
+		
+	});
+	
+	
+	app.primaryPanel = Backbone.View.extend({
+		
+		events: {
+			
+		},
 		
 	});
 	
@@ -68,7 +99,7 @@ $(function(){
 		
 		initialize:function(){
 			this.headerController = new app.headerControlPanel({el:$('#header_controls'),model:app.Dashboard.get('headers')});
-			
+			this.primaryController = new app.primaryPanel({el:$('#primary_controls'),model:appDashboard.get('primary')});
 		},
 		
 		render:function(){

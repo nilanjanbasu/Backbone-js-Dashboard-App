@@ -39,7 +39,7 @@ $(function(){
 		  <input class="span2" id="color" type="text" placeholder="e.g. #FFFFFF">
 		</div>
 		<div id="header_controls">
-			<h3>Header Settings</h3>
+			<h3>Header Field Settings</h3>
 			<div class="input-prepend">
 			  <span class="add-on">Logo Text</span>
 			  <input class="span2" id="logo-name" type="text" placeholder="e.g. Starbucks">
@@ -50,46 +50,65 @@ $(function(){
     			<a class="btn fontplus"><i class="icon-plus"></i></a>
     			<a class="btn fontminus"><i class="icon-minus"></i></a>
 			</div>
+			<div class="input-prepend">
+			  <span class="add-on">Font Color</span>
+			  <input class="span2" id="colorchooser" type="text" placeholder="e.g. #FFFFFF">
+			</div>
 			<div>
 	<!-- 		<form class="form-i"> -->
 				<label class="checkbox"><input id="checkbox_img" type="checkbox">Include Logo Image</label>
 				<div class="input-prepend">
 			  	<span class="add-on">Image URL</span>
 			  	<input class="span3" id="logo-image" type="text" placeholder="http://example.com/image.png">
+			  	<a class="btn apply">Apply</a>
 				</div>
 	<!-- 		</form> -->
-				
 			</div>
 		</div>
-		    <div class="btn-toolbar">
-    </div>
-	
-		<input id="ip" type="text" placeholder="Text input">
-		<button class="btn btn-large btn-primary" id="save" type="button">Save</button>
+		<div id="primary_controls">
+			<h3>Primary Field Settings</h3>
 		
+		
+		
+		
+		</div> 
+		<input id="ip" type="text" placeholder="Text input">
+		<button class="btn btn-large btn-primary" id="save" type="button">Save</button>		
 		
 		
 	</div>
+<!-- 	end of Control Panel -->
+<!-- 	Start of Dashboard -->
+	
+	
 	<div id="dashboard">
 		<div id="dummy-sticker"></div>
 		<div id="sticker">			
 			<p id="nameofdesign">Design Name</p>
 			<div id="pass">
 				<div id="headers">
-					<img src="assets/apple.png">
+					<img src="" id="logo">
 					<h4>Logo Text Here</h4>
 				</div>
-					
-				<div id="primary"></div>
+				<div id="primary">
+					<h3 id="offer">20% off</h3>
+					<p id="item">for any dog food</p>				
+				</div>
 				<div id="secondary"></div>
 				<div id="auxiliary"></div>
+				<div id="barcode">
+				<img src="assets/bc.gif" alt="A sample barcode">
+				</div>
 			</div>				
 		</div>
 	</div>
 </div>
-	<script type="text/html" id="#sec-template">
+	<script type="text/template" id="#sec-template">
 		<label class="property"><%= text %></label>
 		<label class="value"><%= text %></label>
+	</script>
+	<script type="text/template" id="#sec-template">
+		<img src="<%=thumbnail %>">
 	</script>
 	<script src="assets/jquery.min.js"></script>
 	<script src="js/lib/json2.js"></script>
