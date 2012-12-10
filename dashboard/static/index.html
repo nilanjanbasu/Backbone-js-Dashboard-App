@@ -32,27 +32,37 @@ $(function(){
 		<h3>General Settings</h3>
 		<div class="input-prepend">
 		  <span class="add-on">Name of Design</span>
-		  <input class="span4" id="design-name" type="text" placeholder="Name for design here">
+		  <input class="span2" id="design-name" type="text" placeholder="Name for design here">
 		</div>
 		<div class="input-prepend">
 		  <span class="add-on">Background Color</span>
 		  <input class="span2" id="color" type="text" placeholder="e.g. #FFFFFF">
 		</div>
-		<h3>Header Settings</h3>
-		<div class="input-prepend">
-		  <span class="add-on">Logo Text</span>
-		  <input class="span4" id="logo-name" type="text" placeholder="e.g. Starbucks">
-		</div>
-		<div>
-<!-- 		<form class="form-i"> -->
-			<label class="checkbox"><input type="checkbox" checked>Include Logo Image</label>
+		<div id="header_controls">
+			<h3>Header Settings</h3>
 			<div class="input-prepend">
-		  	<span class="add-on">Image URL</span>
-		  	<input class="span3" id="logo-image" type="text" placeholder="http://example.com/image.png">
+			  <span class="add-on">Logo Text</span>
+			  <input class="span2" id="logo-name" type="text" placeholder="e.g. Starbucks">
+			  	<a class="btn left"><i class="icon-chevron-left"></i></a>
+    			<a class="btn up"><i class="icon-chevron-up"></i></a>
+    			<a class="btn down"><i class="icon-chevron-down"></i></a>
+    			<a class="btn right"><i class="icon-chevron-right"></i></a>
+    			<a class="btn fontplus"><i class="icon-plus"></i></a>
+    			<a class="btn fontminus"><i class="icon-minus"></i></a>
 			</div>
-<!-- 		</form> -->
-			
+			<div>
+	<!-- 		<form class="form-i"> -->
+				<label class="checkbox"><input id="checkbox_img" type="checkbox">Include Logo Image</label>
+				<div class="input-prepend">
+			  	<span class="add-on">Image URL</span>
+			  	<input class="span3" id="logo-image" type="text" placeholder="http://example.com/image.png">
+				</div>
+	<!-- 		</form> -->
+				
+			</div>
 		</div>
+		    <div class="btn-toolbar">
+    </div>
 	
 		<input id="ip" type="text" placeholder="Text input">
 		<button class="btn btn-large btn-primary" id="save" type="button">Save</button>

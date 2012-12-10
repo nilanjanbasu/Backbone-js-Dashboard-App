@@ -6,7 +6,10 @@ $(function(){
 	app.HeaderFieldModel = Backbone.Model.extend({
 		defaults:{
 			logo_img_url:"",
-			logo_text:"Logo Text Here"
+			use_img: false, // make checked in index.html false 
+			logo_text:"Logo Text Here",
+			logo_text_x: 0, //Initialized from app.headerAppView
+			logo_text_y:0
 		}
 	});
 	
