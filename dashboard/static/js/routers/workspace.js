@@ -3,7 +3,7 @@ var app = app || {};
 (function() {
 	'use strict';
 	
-	var workspace = Backbone.Router.extend({
+	app.workspace = Backbone.Router.extend({
 		
 		routes:{			
 			"saved/:page" : 'fetch_from_server'
@@ -15,7 +15,5 @@ var app = app || {};
 		}
 		
 	});
-	app.Router = new workspace();
-	Backbone.history.start();
 	
 }());

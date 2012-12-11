@@ -147,7 +147,7 @@ $(function(){
 		},
 		
 		render:function(){
-			
+//			$el.hide(); //Yet to complete
 		},
 		
 		hide_panel: function(){
@@ -184,12 +184,12 @@ $(function(){
 				success: function(data,textStatus){
 					if(data.redirectUrl) {
 						//alert(app.Dashboard.url);
-						app.Router.navigate(data.redirectUrl,{trigger:true});
-						//window.location.replace(data.redirectUrl);
+						//app.Router.navigate(data.redirectUrl,{trigger:true});
+						window.location.replace(data.redirectUrl);
 					}
 				},
 				error: function(jqxhr,textStatus,error){
-					$(this).append("Error:"+jqxhr.statusText);
+					$(this).append("<p>Error: Could not save template</p>");
 				}
 					
 			});

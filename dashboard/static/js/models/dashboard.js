@@ -26,7 +26,7 @@ $(function(){
 		
 	});
 	
-	var dashboard = Backbone.Model.extend({
+	app.dashboardModel = Backbone.Model.extend({
 		defaults:{
 			text:'Design Name',
 			color:'#FFFFFF', // Standard Wallet Colours: #E27F38; #00934E, #1889D7, #E8AA05
@@ -46,6 +46,5 @@ $(function(){
 			return response;
 		}
 	});
-	app.Dashboard = new dashboard();
 
 });

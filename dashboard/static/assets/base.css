@@ -88,7 +88,7 @@ html,body{
 	position:relative;
 	top:15px;
 	left:0px;
-	font-family: "Verdana'', sans-serif;
+	font-family: "Verdana", sans-serif;
 	font-size: 24px;
 	color: #000000;
 }
@@ -125,7 +125,7 @@ html,body{
 
 #only_text {
 	position:absolute;
-	top:70;
+	top:70px;
 	left:0;
 	height: 150px;
 	width: 100%;
@@ -148,7 +148,7 @@ html,body{
 	width: 150px;	
 }
 #primary.sidepane {
- 	margin: none;
+ 	margin: 0 0;
  	text-align: left;
  	margin-left: 10px;
  }
@@ -157,8 +157,7 @@ html,body{
 	position:absolute;
 	right: 10px;
 	top: 60px;
-	width: 100px;
-	
+	width: 100px;	
 	float:right;
 }
 

@@ -114,6 +114,7 @@ $(function(){
 				this.$el.append(this.template({thumbnail:url}));
 				this.$('#only_text').addClass('sidepane').css({'width':'auto'});
 				this.$('#only_text h3').css({'font-size':'50px'});
+				console.log("HMm");
 				$('#thumbnail_view').fadeIn();
 			} else {
 				$('#thumbnail_view').fadeOut().remove();
@@ -137,15 +138,12 @@ $(function(){
 			this.primary_view = new app.primaryAppView({el:$("#primary"),model:app.Dashboard.get('primary')}); ////
 		},
 		
-		fetch_server:function(){
-			console.log('Fetch server in app view');
-		},
-		
 		change_header_view:function(){
 //			this.header_view.remove();
 //			this.header_view = new app.headerAppView({el:$("#headers"),model:app.Dashboard.get('headers')}); ////
 //			this.$el.prepend(this.header_view.$el);
 			this.header_view.set_model(app.Dashboard.get('headers'));
+			this.header_view.trigger('render_all');
 		},
 		change_primary_view:function(){
 //			this.primary_view.remove();
