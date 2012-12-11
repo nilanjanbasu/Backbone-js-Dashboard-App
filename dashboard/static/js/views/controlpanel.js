@@ -44,18 +44,18 @@ $(function(){
 			console.log("here");
 			var size = this.model.get('font_size');
 			console.log(size);
-			this.model.set('font_size',size+i);
+			this.model.set('font_size',String(parseInt(size)+i));
 		},
 		
 		shift: function(delta_left,delta_top){ //+ve x means downwards, and +y means rightwards
 			console.log('Triggered btn up/dpwn/left/right');
 			if ( delta_top ) {
-				var top = this.model.get('logo_text_y') + delta_top;
-				this.model.set({logo_text_y:top});
+				var top = parseInt(this.model.get('logo_text_y')) + delta_top;
+				this.model.set({logo_text_y:String(top)});
 			}
 			if ( delta_left ) {
-				var left = this.model.get('logo_text_x') + delta_left;				
-				this.model.set({logo_text_x:left});
+				var left = parseInt(this.model.get('logo_text_x')) + delta_left;				
+				this.model.set({logo_text_x:String(left)});
 			}
 		},
 		

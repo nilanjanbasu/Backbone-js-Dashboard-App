@@ -6,6 +6,22 @@ $(function(){
 	app.headerAppView = Backbone.View.extend({
 	
 		initialize:function(){
+			
+			this.bind_all_model_events();
+			
+			var top = parseInt($('#headers > h4').css('top'));
+			var left = parseInt($('#headers > h4').css('left'));
+			var sz = parseInt($('#headers > h4').css('font-size'));
+			this.model.set({logo_text_x:String(left),logo_text_y:String(top),font_size:String(sz),logo_img_url:"" ,font_color:'#FFFFFF'});
+		},
+		
+		set_model: function(m){
+			this.model = m;
+			this.bind_all_model_events();
+			this.render('render_all');
+		},
+		
+		bind_all_model_events: function(){
 			this.model.on('change:use_img',this.toggleChecked,this);
 			this.model.on('change:logo_text',this.changeLogoText,this);			
 			this.model.on('change:logo_text_x',this.changeH4Left,this);
@@ -13,20 +29,24 @@ $(function(){
 			this.model.on('change:font_size',this.changeFont,this);
 			this.model.on('change:logo_img_url',this.changeImage,this);
 			this.model.on('change:font_color',this.changeFontColor,this);
-			
-			var top = parseInt($('#headers > h4').css('top'));
-			var left = parseInt($('#headers > h4').css('left'));
-			var sz = parseInt($('#headers > h4').css('font-size'));
-			this.model.set({logo_text_x:left,logo_text_y:top,font_size:sz,logo_img_url:"" ,font_color:'#FFFFFF'});
+			this.on('render_all',this.render,this);			
+		},		
+		render: function(){ //Using a template is not advantageous as there are large number of css attribs
+			this.changeImage();
+			this.changeFont();
+			this.changeFontColor();
+			this.changeH4Left();
+			this.changeH4Top();
+			this.changeLogoText();
+			this.toggleChecked();
 		},
 		
-		
 		changeImage: function(){
-			$("#logo").attr({'src':this.model.get('logo_img_url')}).show();
+			$("#logo").attr({'src':this.model.get('logo_img_url')});
 		},
 		
 		changeFont: function(){
-			$("h4").css({'font-size':this.model.get('font_size')});			
+			$("h4").css({'font-size':parseInt(this.model.get('font_size'))});			
 		},
 		
 		changeFontColor: function(){
@@ -35,10 +55,11 @@ $(function(){
 		},
 		
 		changeH4Left:function(){
-			$("h4").css({'left':this.model.get('logo_text_x')});
+			$("h4").css({'left':parseInt(this.model.get('logo_text_x'))});
 		},
 		changeH4Top:function(){
-			$("h4").css({'top':this.model.get('logo_text_y')});
+			console.log('changing top'+this.model.get('logo_text_y'));
+			$("h4").css({'top':parseInt(this.model.get('logo_text_y'))});
 		},
 		
 		changeLogoText: function(){
@@ -51,8 +72,7 @@ $(function(){
 				$('#logo').fadeIn();
 			else
 				$('#logo').fadeOut();
-		}
-	
+		}	
 		
 	});	
 	
@@ -65,8 +85,15 @@ $(function(){
 			this.model.on('change:thumbnail_url',this.makeThumbVisible,this);
 			this.model.on('change:offer_field',this.updateOfferField,this);
 			this.model.on('change:item_field',this.updateItemField,this);
+			this.on('render_all',this.render,this);
 		},
 		
+		render: function(){
+			this.updateOfferField();
+			this.updateItemField();
+			this.makeThumbVisible();
+			this.toggleChecked();
+		},
 		updateItemField: function() {
 			$('#only_text p').text(this.model.get('item_field'));
 		},
@@ -77,7 +104,7 @@ $(function(){
 		
 		
 		makeThumbVisible: function(){
-			$("#thumbnail_view").attr({'src':this.model.get('thumbnail_url')}).show();
+			$("#thumbnail_view").attr({'src':this.model.get('thumbnail_url')});
 		},
 		
 		toggleChecked: function(){
@@ -101,8 +128,8 @@ $(function(){
 		el: '#dashboard',		
 		
 		initialize: function() {
-			app.Dashboard.on('change:headers',this.change_header_view,this);
 			app.Dashboard.on('change:primary',this.change_primary_view,this);
+			app.Dashboard.on('change:headers',this.change_header_view,this);
 			app.Dashboard.on('change:text',this.subrender,this);
 			app.Dashboard.on('change:color',this.subrender,this);
 			app.Dashboard.on('Fetch_server',this.fetch_server,this);
@@ -115,10 +142,16 @@ $(function(){
 		},
 		
 		change_header_view:function(){
-			this.header_view = new app.headerAppView({el:$("#headers"),model:app.Dashboard.get('headers')}); ////
+//			this.header_view.remove();
+//			this.header_view = new app.headerAppView({el:$("#headers"),model:app.Dashboard.get('headers')}); ////
+//			this.$el.prepend(this.header_view.$el);
+			this.header_view.set_model(app.Dashboard.get('headers'));
 		},
 		change_primary_view:function(){
-			this.primary_view = new app.primaryAppView({el:$("#primary"),model:app.Dashboard.get('primary')}); ////
+//			this.primary_view.remove();
+//			this.primary_view = new app.primaryAppView({el:$("#primary"),model:app.Dashboard.get('primary')}); ////
+			this.primary_view.model = app.Dashboard.get('primary');
+			this.primary_view.trigger('render_all');
 		},
 		subrender: function() {//			
 			console.log('Color event in view');

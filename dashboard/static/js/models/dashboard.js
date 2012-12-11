@@ -8,19 +8,9 @@ $(function(){
 			logo_img_url:"",
 			use_img: false, // make checked in index.html false 
 			logo_text:"Logo Text Here",
-			logo_text_x: 0, //Initialized from app.headerAppView
-			logo_text_y:0,
-			font_size: 0,
-			font_color:'#FFFFFF'
-		}
-	});app.HeaderFieldModel = Backbone.Model.extend({
-		defaults:{
-			logo_img_url:"",
-			use_img: false, // make checked in index.html false 
-			logo_text:"Logo Text Here",
-			logo_text_x: 0, //Initialized from app.headerAppView
-			logo_text_y:0,
-			font_size: 0,
+			logo_text_x: '0px', //Initialized from app.headerAppView
+			logo_text_y: '0px',
+			font_size: '0px',
 			font_color:'#FFFFFF'
 		}
 	});
@@ -46,20 +36,16 @@ $(function(){
 		//localStorage: new Store("Dashboard-config")
 		
 		parse:function(response){
-			this.headers = new app.HeaderFieldModel(response.headers,{parse:true});
+			//this.headers.destroy();
+			this.set('headers',new app.HeaderFieldModel(response.headers,{parse:true}));
 			delete response.headers;
-			this.primary = new app.PrimaryFieldModel(response.primary,{parse:true});
-			delete response.headers;
+			
+			//this.primary.destroy();
+			this.set('primary', new app.PrimaryFieldModel(response.primary,{parse:true}));
+			delete response.primary;
 			return response;
 		}
 	});
 	app.Dashboard = new dashboard();
 
-	
-//	app.PrimaryFieldModel = Backbone.Model.extend({
-//		defaults:{
-//			mainText:'',
-//			auxText:''
-//		}
-//	});
 });
