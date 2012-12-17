@@ -5,7 +5,7 @@ from google.appengine.ext import db
 import json
 
 class JSONData(db.Model):
-	json_data = db.StringProperty()
+	json_data = db.TextProperty()
 
 
 class MainPage(webapp2.RequestHandler):
